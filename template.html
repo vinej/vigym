@@ -7,7 +7,7 @@
 		<meta name="mobile-web-app-capable" content="yes">
 		<meta name="description" content="<%= htmlWebpackPlugin.options.title %>">		
 		<meta name="apple-mobile-web-app-capable" content="yes">
-		<link rel="manifest" href="vigym/<%= htmlWebpackPlugin.files.publicPath %>manifest.json">
+		<link rel="manifest" href="<%= htmlWebpackPlugin.files.publicPath %>manifest.json">
 		<% if (htmlWebpackPlugin.options.manifest.theme_color) { %>
 			<meta name="theme-color" content="<%= htmlWebpackPlugin.options.manifest.theme_color %>">
 		<% } %>
@@ -26,8 +26,8 @@
 		<%= htmlWebpackPlugin.options.ssr({
 			url: '/vigym'
 		}) %>
-		<script defer src="vigym/<%= htmlWebpackPlugin.files.chunks['bundle'].entry %>"></script>
-		<script>window.fetch||document.write('<script src="vigym/<%= htmlWebpackPlugin.files.chunks["polyfills"].entry %>"><\/script>')</script>
+		<script defer src="<%= htmlWebpackPlugin.files.chunks['bundle'].entry %>"></script>
+		<script>window.fetch||document.write('<script src="<%= htmlWebpackPlugin.files.chunks["polyfills"].entry %>"><\/script>')</script>
 		<noscript>
 			<h1>You don’t have javascript enabled.</h1>
 			<p>Please enable it to get the full experience.</p>
