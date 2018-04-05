@@ -516,17 +516,17 @@ var header_Header = function (_Component) {
 				null,
 				Object(preact_min["h"])(
 					match["Link"],
-					{ activeClassName: header_style_default.a.active, href: '/' },
+					{ activeClassName: header_style_default.a.active, href: '/vigym' },
 					'Home'
 				),
 				Object(preact_min["h"])(
 					match["Link"],
-					{ activeClassName: header_style_default.a.active, href: '/profile' },
+					{ activeClassName: header_style_default.a.active, href: '/vigym/profile' },
 					'Me'
 				),
 				Object(preact_min["h"])(
 					match["Link"],
-					{ activeClassName: header_style_default.a.active, href: '/profile/john' },
+					{ activeClassName: header_style_default.a.active, href: '/vigym/profile/john' },
 					'John'
 				)
 			)
@@ -743,11 +743,11 @@ if (false) {
 
 var app__ref = Object(preact_min["h"])(header_Header, null);
 
-var app__ref2 = Object(preact_min["h"])(home_Home, { path: '/' });
+var app__ref2 = Object(preact_min["h"])(home_Home, { path: '/vigym' });
 
-var app__ref3 = Object(preact_min["h"])(profile_Profile, { path: '/profile/', user: 'me' });
+var app__ref3 = Object(preact_min["h"])(profile_Profile, { path: '/vigym/profile/', user: 'me' });
 
-var app__ref4 = Object(preact_min["h"])(profile_Profile, { path: '/profile/:user' });
+var app__ref4 = Object(preact_min["h"])(profile_Profile, { path: '/vigym/profile/:user' });
 
 var app_App = function (_Component) {
 	app__inherits(App, _Component);
