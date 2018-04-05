@@ -7,9 +7,9 @@ const preactCliSwPrecachePlugin = require('preact-cli-sw-precache');
 	//let { plugin } = helpers.getPluginsByName(config, "UglifyJsPlugin")[0];
 	//plugin.options.sourceMap = false
 	//console.log(config);
-	if (env.production) {
-		let { plugin } = helpers.getPluginsByName(config, "UglifyJsPlugin")[0];
-		plugin.options.sourceMap = false
+	//if (env.production) {
+	//	let { plugin } = helpers.getPluginsByName(config, "UglifyJsPlugin")[0];
+	//	plugin.options.sourceMap = false
 
 		//const precacheConfig = { 
 		//	staticFileGlobs: [ 
@@ -32,6 +32,6 @@ const preactCliSwPrecachePlugin = require('preact-cli-sw-precache');
 		//	maximumFileSizeToCacheInBytes: 10*1024*1024 
 		//}
 		//return preactCliSwPrecachePlugin(config, precacheConfig); 
-	} 	
+	//} 	
 }; 
  
