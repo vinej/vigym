@@ -3,6 +3,10 @@ import { Router } from 'preact-router';
 
 import Header from './header';
 import Home from '../components/myroutes/home';
+import Gym from '../components/myroutes/gym';
+import SignIn from '../components/myroutes/signin';
+import SignUp from '../components/myroutes/signup';
+import SignOut from '../components/myroutes/signout';
 import Profile from '../components/myroutes/profile';
 // import Home from 'async!../routes/home';
 // import Profile from 'async!../routes/profile';
@@ -27,8 +31,11 @@ export default class App extends Component {
 				<Header />
 				<Router onChange={this.handleRoute}>
 					<Home path="/vigym" />
-					<Profile path="/vigym/profile/" user="me" />
-					<Profile path="/vigym/profile/:user" />
+					<Gym path="/vigym/gym/"/>
+					<SignIn path="/vigym/signin" />
+					<SignUp path="/vigym/signup" />
+					<SignOut path="/vigym/signout" />
+					<Profile path="/vigym/profile" />
 				</Router>
 			</div>
 		);
