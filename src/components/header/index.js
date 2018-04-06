@@ -1,24 +1,23 @@
 import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
 import style from './style';
-import Authentification from '../../stores/auth_store';
+import AuthStore from '../../stores/auth_store';
 import MicroEvent from '../../stores/microevent';
 
 export default MicroEvent.mixin(class Header extends Component {
 	state = {
-		isAuthenticated : false
+		isAuthenticated : true
 	}
 
 	componentWillMount() {
-		this.mbind('auth', this, this.onAuth);
+		this.mbind(AuthStore.name, this, this.onAuth);
 	}
 
 	componentWillUnmount() {
-		this.munbind('auth', this, this.onAuth)
+		this.munbind(AuthStore.name, this, this.onAuth)
 	}
 
 	onAuth(data) {
-		console.log('event', data.isAuthenticated);
 		this.setState( {
 			isAuthenticated : data.isAuthenticated
 		})
@@ -27,9 +26,8 @@ export default MicroEvent.mixin(class Header extends Component {
 	render() {
 		return (
 			<header class={style.header}>
-				<h1>ViGym v4</h1>
+				<h1><Link href="/vigym">ViGym</Link></h1>
 				<nav>
-					<Link activeClassName={style.active} href="/vigym">Home</Link>
 					{ this.state.isAuthenticated  ? (
 						<span>
 							<Link activeClassName={style.active} href="/vigym/gym">Gym</Link>

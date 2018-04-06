@@ -1,3 +1,10 @@
 .signin {
     padding: 56px 20px;
 }
+
+.signin_form {   
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    max-width: 14rem;
+}

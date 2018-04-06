@@ -40,7 +40,6 @@ MicroEvent.prototype	= {
 		MicroEvent._events[event].splice(MicroEvent._objs[event].indexOf(obj), 1);
 	},
 	mtrigger	: function(event /* , args... */){
-		console.log('before', MicroEvent._events);
 		MicroEvent._events = MicroEvent._events || {};
 		if( event in MicroEvent._events === false  )	return;
 		for(var i = 0; i < MicroEvent._events[event].length; i++){

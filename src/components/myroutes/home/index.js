@@ -1,12 +1,12 @@
 import { h, Component } from 'preact';
 import style from './style';
-import Authentification from '../../../stores/auth_store';
+import AuthStore from '../../../stores/auth_store';
 import { get, set } from '../../../stores/indexdb';
 
 export default class Home extends Component {
 	auth() {
-		Authentification.setAuthentification(!Authentification.getData().isAuthenticated);
-		set("test", Authentification.getData().isAuthenticated);
+		AuthStore.setAuthentification(!AuthStore.getData().isAuthenticated);
+		set("test", AuthStore.getData().isAuthenticated);
 		get('test').then(val => console.log(val));	
 	}
 

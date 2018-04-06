@@ -20,6 +20,14 @@
 	color: #FFF;
 }
 
+.header a {
+	display: inline-block;
+	height: 56px;
+	line-height: 56px;
+	text-decoration: none;
+	color: #FFF;
+}
+
 .header nav {
 	float: right;
 	font-size: 100%;
@@ -50,3 +58,4 @@
 .headerlink {
 	display: none
 }
+

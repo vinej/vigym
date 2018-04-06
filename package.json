@@ -7,7 +7,7 @@
     "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
     "build": "preact build --production --template template.html --no-prerender --prerenderUrls prerender-urls.json",
     "serve": "preact build && preact serve",
-    "dev": "preact watch --config preact.config.dev.js",
+    "dev": "preact watch --template template.html --config preact.config.dev.js",
     "lint": "eslint src",
     "test": "jest ./tests"
   },

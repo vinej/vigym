@@ -1,6 +1,8 @@
 import MicroEvent from './microevent';
 
-class Authentification {
+class AuthStore {
+    name = "auth_store"
+
     data = {
         isAuthenticated : true
     }
@@ -11,11 +13,10 @@ class Authentification {
 
     setAuthentification(isAuth) {
         this.data.isAuthenticated = isAuth;
-        this.mtrigger('auth', this.data);
+        this.mtrigger(this.name, this.data);
     }
 };
 
-const store = new Authentification();
+const store = new AuthStore();
 MicroEvent.mixin(store)
-
 export default store;
