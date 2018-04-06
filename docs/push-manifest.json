@@ -1,12 +1,1 @@
-{
-    "/": {
-        "style.12986.css": {
-            "type": "style",
-            "weight": 1
-        },
-        "bundle.cefce.js": {
-            "type": "script",
-            "weight": 1
-        }
-    }
-}
+{"/":{"style.44b27.css":{"type":"style","weight":1},"bundle.a4e57.js":{"type":"script","weight":1}}}

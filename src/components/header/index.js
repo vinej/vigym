@@ -1,13 +1,31 @@
 import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
 import style from './style';
-import { observer } from 'mobx-preact-lite';
 import Authentification from '../../stores/auth_store';
+import MicroEvent from '../../stores/microevent';
 
-@observer
-export default class Header extends Component {
+export default MicroEvent.mixin(class Header extends Component {
+	constructor() {
+        super()
+		this.state = {
+			isAuthenticated : false
+		}
+	}
+
 	componentWillMount() {
+		this.onAuth.bind(this);
+		this.mbind('auth', this, this.onAuth);
+	}
 
+	componentWillUnmount() {
+		this.munbind('auth', this, this.onAuth)
+	}
+
+	onAuth(data) {
+		console.log('event', data.isAuthenticated);
+		this.setState( {
+			isAuthenticated : data.isAuthenticated
+		})
 	}
 
 	render() {
@@ -16,18 +34,18 @@ export default class Header extends Component {
 				<h1>ViGym v4</h1>
 				<nav>
 					<Link activeClassName={style.active} href="/vigym">Home</Link>
-					{!Authentification.isAuthenticated ? 
+					{!this.state.isAuthenticated ? 
 						<Link activeClassName={style.active} href="/vigym/signin">In</Link> : "" }
-					{!Authentification.isAuthenticated ? 
+					{!this.state.isAuthenticated ? 
 						<Link activeClassName={style.active} href="/vigym/signup">Up</Link> : "" }
-					{Authentification.isAuthenticated ? 
-						<Link activeClassName={style.active} href="/vigym/gym">Gym</Link> : "" }
-					{Authentification.isAuthenticated ? 
+					{this.state.isAuthenticated ? 
+						<Link activeClassName={style.active} href="/vigym/gym">Gym2</Link> : "" }
+					{this.state.isAuthenticated ? 
 						<Link activeClassName={style.active} href="/vigym/signout">Out</Link> : "" }
-					{Authentification.isAuthenticated ? 
+					{this.state.isAuthenticated ? 
 						<Link class={style.headerlink} activeClassName={style.active} href="/vigym/profile">Me</Link> : "" }
 				</nav>
 			</header>
 		);
 	}
-}
+})
