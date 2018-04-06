@@ -5,15 +5,11 @@ import Authentification from '../../stores/auth_store';
 import MicroEvent from '../../stores/microevent';
 
 export default MicroEvent.mixin(class Header extends Component {
-	constructor() {
-        super()
-		this.state = {
-			isAuthenticated : false
-		}
+	state = {
+		isAuthenticated : false
 	}
 
 	componentWillMount() {
-		this.onAuth.bind(this);
 		this.mbind('auth', this, this.onAuth);
 	}
 
@@ -34,16 +30,18 @@ export default MicroEvent.mixin(class Header extends Component {
 				<h1>ViGym v4</h1>
 				<nav>
 					<Link activeClassName={style.active} href="/vigym">Home</Link>
-					{!this.state.isAuthenticated ? 
-						<Link activeClassName={style.active} href="/vigym/signin">In</Link> : "" }
-					{!this.state.isAuthenticated ? 
-						<Link activeClassName={style.active} href="/vigym/signup">Up</Link> : "" }
-					{this.state.isAuthenticated ? 
-						<Link activeClassName={style.active} href="/vigym/gym">Gym2</Link> : "" }
-					{this.state.isAuthenticated ? 
-						<Link activeClassName={style.active} href="/vigym/signout">Out</Link> : "" }
-					{this.state.isAuthenticated ? 
-						<Link class={style.headerlink} activeClassName={style.active} href="/vigym/profile">Me</Link> : "" }
+					{ this.state.isAuthenticated  ? (
+						<span>
+							<Link activeClassName={style.active} href="/vigym/gym">Gym</Link>
+							<Link activeClassName={style.active} href="/vigym/signout">Out</Link>
+						</span>
+					) : (
+						<span>
+							<Link activeClassName={style.active} href="/vigym/signin">In</Link>
+							<Link activeClassName={style.active} href="/vigym/signup">Up</Link>
+							<Link class={style.headerlink} activeClassName={style.active} href="/vigym/profile">Me</Link>
+						</span>
+					)}
 				</nav>
 			</header>
 		);

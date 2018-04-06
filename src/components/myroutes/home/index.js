@@ -1,14 +1,13 @@
 import { h, Component } from 'preact';
 import style from './style';
 import Authentification from '../../../stores/auth_store';
+import { get, set } from '../../../stores/indexdb';
 
 export default class Home extends Component {
-	componentWillMount() {
-		this.auth.bind(this);
-	}
-
 	auth() {
-		Authentification.setAuthentification(!Authentification.getData().isAuthenticated)
+		Authentification.setAuthentification(!Authentification.getData().isAuthenticated);
+		set("test", Authentification.getData().isAuthenticated);
+		get('test').then(val => console.log(val));	
 	}
 
 	render() {
