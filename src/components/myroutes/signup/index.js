@@ -99,7 +99,7 @@ export default class SignIn extends Component {
 							confirmedPassword !== password && isPasswordTouched && isConfirmedPasswordTouched
 							 ? 'Les deux mots de passe ne sont pas identiques' : '' }</span>
 						<label>Take a selphie</label>
-						<input onChange={this.takePhoto} type="file"  accept="image/*" />
+						<input onChange={this.takePhoto} type="file"  accept="image/*" capture="camera" />
 						<img src={photo} height="50" />
 						<br />
 						<button onClick={this.handleSubmit} class="pure-button">S'enregistrer</button>
