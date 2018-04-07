@@ -1,8 +1,6 @@
 import { h, Component } from 'preact';
 import style from './style';
-//import linkState from 'linkstate';
-//import Authentification from '../../../stores/auth_store';
-//import { route } from 'preact-router';
+import AuthStore from '../../../stores/auth_store';
 
 export default class SignIn extends Component {
 	state = {
@@ -12,8 +10,16 @@ export default class SignIn extends Component {
 		isPassordTouched: false
 	}
 
+	isFormValid() {
+		return this.state.email !== '' && this.state.password !== ''
+				&& this.state.password === this.state.confirmedPassword;
+	}
+
 	handleSubmit(e) {
 		e.preventDefault();
+		if (this.isFormValid()) {
+			AuthStore.signin( { this.state.email, this.state.password });
+		}
 		//console.log('on sign in', this.state);
 	}
 
