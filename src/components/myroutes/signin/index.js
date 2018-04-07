@@ -1,13 +1,14 @@
 import { h, Component } from 'preact';
 import style from './style';
 import AuthStore from '../../../stores/auth_store';
-
+import Profile from '../../../models/profile';
 export default class SignIn extends Component {
 	state = {
 		email: '',
 		isEmailTouched: false,
 		password: '',
-		isPassordTouched: false
+		isPasswordTouched: false,
+		photo: 'file:///C:/Users/jyv/Pictures/img001.jpg'
 	}
 
 	isFormValid() {
@@ -17,10 +18,27 @@ export default class SignIn extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		if (this.isFormValid()) {
-			AuthStore.signin( { this.state.email, this.state.password });
-		}
-		//console.log('on sign in', this.state);
+		//me = this.state;
+		const p = new Profile();
+		p.email = this.state.email;
+		p.password = this.state.password;
+		p.photo = this.state.photo;
+		//if (this.isFormValid()) {
+			AuthStore.signIn( p );
+		//}
+	}
+
+	photoTaken(e) {
+		var fileTobeRead = e.target.files[0]
+		var me = this;
+		var reader = new FileReader(); 
+		reader.onload = function (e) { 
+			me.setState({ photo: reader.result });
+		};
+		reader.onerror = function(event) {
+			console.error("File could not be read! Code " + event.target.error.code);
+		};
+		reader.readAsDataURL(fileTobeRead); 
 	}
 
 	updateEmail = e => {
@@ -31,12 +49,12 @@ export default class SignIn extends Component {
 		this.setState({ password: e.target.value, isPasswordTouched: true });
 	};
 
-	constructor(props) {
-		super(props);
+	componentWillMount() {
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.photoTaken = this.photoTaken.bind(this);
 	}
 
-	render( {}, { email, isEmailTouched, password, isPasswordTouched }) {
+	render( {}, { email, isEmailTouched, password, isPasswordTouched, photo }) {
 		return (
 			<div class={style.signin}>
 				<form class="pure-form " >
@@ -56,7 +74,11 @@ export default class SignIn extends Component {
 						/>
 						<span style="color:red">{ password === '' && isPasswordTouched ? 'Le mot de passe est obligatoire' : '' }</span>
 						<br />
-						<button onClick={this.handleSubmit} class="pure-button">Se connecter</button>
+						<label>Take a selphie</label>
+						<input onChange={e => this.photoTaken(e)} type="file"  accept="image/*" />
+						<br />
+						<img src={ photo } height="200" width="200" />
+						<button onClick={e => this.handleSubmit(e)} class="pure-button">Se connecter</button>
 					</div>
 				</form>
 			</div>

@@ -1,5 +1,5 @@
 import MicroEvent from './microevent';
-import { set } from '../../../stores/indexdb';
+import { set } from './indexdb';
 
 class AuthStore {
 	name = 'auth_store'
@@ -8,8 +8,10 @@ class AuthStore {
 		isAuthenticated: true
 	}
 
-	signIn( data ) {
-		set( data.email, data);
+	signIn( profile ) {
+		set( 'user', profile)
+			.then(() => console.log('It worked!'))
+			.catch(err => console.log('It failed!', err));
 	}
 
 	getData() {
