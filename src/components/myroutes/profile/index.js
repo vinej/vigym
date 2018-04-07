@@ -43,7 +43,7 @@ export default class Profile extends Component {
 			<div class={style.profile}>
 				<h1>Profile: {user}</h1>
 				<p>This is the user profile for a user named { user }.</p>
-				<img src={ photo } height="200" width="200" />
+				<img class={style.profile_img} src={ photo } />
 				<div>Current time: {new Date(time).toLocaleString()}</div>
 
 				<p>

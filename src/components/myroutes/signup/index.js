@@ -100,7 +100,7 @@ export default class SignIn extends Component {
 							 ? 'Les deux mots de passe ne sont pas identiques' : '' }</span>
 						<label>Take a selphie</label>
 						<input onChange={this.takePhoto} type="file"  accept="image/*" capture="camera" />
-						<img src={photo} height="50" />
+						<img class={style.signup_img} src={photo} />
 						<br />
 						<button onClick={this.handleSubmit} class="pure-button">S'enregistrer</button>
 
