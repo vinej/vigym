@@ -1,12 +1,14 @@
 import { h, Component } from 'preact';
 import style from './style';
-//import { observer } from 'mobx-preact-lite';
-//import Authentification from '../../../stores/auth_store';
-//import { route } from 'preact-router';
+import AuthStore from '../../../stores/auth_store';
 
 export default class SignOut extends Component {
 	state = {
 		email: ''
+	}
+
+	componentWillMount() {
+		AuthStore.signOut();
 	}
 	
 	render() {

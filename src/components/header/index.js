@@ -6,7 +6,13 @@ import MicroEvent from '../../stores/microevent';
 
 export default MicroEvent.mixin(class Header extends Component {
 	state = {
-		isAuthenticated : true
+		isAuthenticated: false
+	}
+
+	onAuth(data) {
+		this.setState( {
+			isAuthenticated: data.isAuthenticated
+		})
 	}
 
 	componentWillMount() {
@@ -15,12 +21,6 @@ export default MicroEvent.mixin(class Header extends Component {
 
 	componentWillUnmount() {
 		this.munbind(AuthStore.name, this, this.onAuth)
-	}
-
-	onAuth(data) {
-		this.setState( {
-			isAuthenticated : data.isAuthenticated
-		})
 	}
 
 	render() {
@@ -32,12 +32,12 @@ export default MicroEvent.mixin(class Header extends Component {
 						<span>
 							<Link activeClassName={style.active} href="/vigym/gym">Gym</Link>
 							<Link activeClassName={style.active} href="/vigym/signout">Out</Link>
+							<Link class={style.headerlink} activeClassName={style.active} href="/vigym/profile">Me</Link>
 						</span>
 					) : (
 						<span>
 							<Link activeClassName={style.active} href="/vigym/signin">In</Link>
 							<Link activeClassName={style.active} href="/vigym/signup">Up</Link>
-							<Link class={style.headerlink} activeClassName={style.active} href="/vigym/profile">Me</Link>
 						</span>
 					)}
 				</nav>

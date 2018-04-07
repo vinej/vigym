@@ -1,8 +1,7 @@
 import { h, Component } from 'preact';
 import style from './style';
-//import linkState from 'linkstate';
-//import Authentification from '../../../stores/auth_store';
-//import { route } from 'preact-router';
+import AuthStore from '../../../stores/auth_store';
+import Profile from '../../../models/profile';
 
 export default class SignIn extends Component {
 	state = {
@@ -11,7 +10,27 @@ export default class SignIn extends Component {
 		password: '',
 		isPassordTouched: false,
 		confirmedPassword: '',
-		isConfirmedPasswordTouched: false
+		isConfirmedPasswordTouched: false,
+		photo: null,
+		isValid: true
+	}
+
+	isFormValid() {
+		return this.state.email !== '' && this.state.password !== ''
+				&& this.state.password === this.state.confirmedPassword;
+	}
+
+	takePhoto = e => {
+		let fileTobeRead = e.target.files[0];
+		let me = this;
+		let reader = new FileReader();
+		reader.onload = e => {
+			me.setState({ photo: reader.result });
+		};
+		reader.onerror = function(event) {
+			console.error('File could not be read! Code ' + event.target.error.code);
+		};
+		reader.readAsDataURL(fileTobeRead);
 	}
 
 	updateEmail = e => {
@@ -26,17 +45,30 @@ export default class SignIn extends Component {
 		this.setState({ confirmedPassword: e.target.value, isConfirmedPasswordTouched: true });
 	};
 
-	handleSubmit(e) {
+	handleSubmit = e => {
 		e.preventDefault();
-		//console.log('on sign in', this.state);
+		if (this.isFormValid) {
+			let p = new Profile();
+			p.email = this.state.email;
+			p.password = this.state.password;
+			p.photo = this.state.photo;
+			AuthStore.signUp(p);
+		}
+		else {
+			this.state.isValid = false;
+		}
 	}
 
 	constructor(props){
 		super(props);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.takePhoto = this.takePhoto.bind(this);
 	}
 
-	render( {}, { email, isEmailTouched, password, isPasswordTouched, confirmedPassword, isConfirmedPasswordTouched }) {
+	render( {}, { email, isEmailTouched,
+		password, isPasswordTouched,
+		confirmedPassword, isConfirmedPasswordTouched,
+		photo, isValid }) {
 		return (
 			<div class={style.signup}>
 				<form class="pure-form " >
@@ -46,7 +78,7 @@ export default class SignIn extends Component {
 						<input type="text"
 							id="Email"
 							onChange={this.updateEmail}
-							value={email}                  
+							value={email}
 						/>
 						<span style="color:red">{ email === '' && isEmailTouched ? 'Le courriel est obligatoire' : '' }</span>
 						<label>Mot de passe</label>
@@ -66,8 +98,13 @@ export default class SignIn extends Component {
 						<span style="color:red">{
 							confirmedPassword !== password && isPasswordTouched && isConfirmedPasswordTouched
 							 ? 'Les deux mots de passe ne sont pas identiques' : '' }</span>
+						<label>Take a selphie</label>
+						<input onChange={this.takePhoto} type="file"  accept="image/*" />
+						<img src={photo} height="50" />
 						<br />
 						<button onClick={this.handleSubmit} class="pure-button">S'enregistrer</button>
+
+						<span  style="color:red">{ !isValid ? 'La forme est invalide' : '' }</span>
 					</div>
 				</form>
 			</div>

@@ -1,16 +1,41 @@
 import MicroEvent from './microevent';
-import { set } from './indexdb';
+import { set, get } from './indexdb';
+import { route } from 'preact-router';
 
 class AuthStore {
 	name = 'auth_store'
 
 	data = {
-		isAuthenticated: true
+		isAuthenticated: false
+	}
+
+	signOut() {
+		this.data.isAuthenticated = false;
+		this.mtrigger(this.name, this.data);
 	}
 
 	signIn( profile ) {
+		let me = this;
+		get('user').then(p => {
+			if (profile.email === p.email && profile.password === p.password) {
+				me.data.isAuthenticated = true;
+				me.mtrigger(me.name, me.data);
+				route('/vigym', true);
+			}
+			else {
+				// message box, wrong pw
+			}
+		});
+	}
+
+	signUp( profile ) {
+		let me = this;
 		set( 'user', profile)
-			.then(() => console.log('It worked!'))
+			.then(() => {
+				me.data.isAuthenticated = true;
+				me.mtrigger(me.name, me.data);
+				route('/vigym', true);
+			})
 			.catch(err => console.log('It failed!', err));
 	}
 
